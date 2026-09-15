@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard - ZenBoostMm</title>
+<link rel="icon" href="../zen.svg" type="image/png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="index">
+
+<!-- LOADING -->
+<div class="loading" id="loading">
+  <div class="loading-spinner"></div>
+  <p>Loading dashboard...</p>
+</div>
+
+<!-- ERROR MESSAGE -->
+<div class="error-message" id="errorMessage">
+  <i class="fas fa-exclamation-circle"></i>
+  <span id="errorText">Error occurred!</span>
+</div>
+
+<!-- SUCCESS MESSAGE -->
+<div class="success-message" id="successMessage">
+  <i class="fas fa-check-circle"></i>
+  <span id="successText">Success!</span>
+</div>
+
+<!-- CONFIRM MODAL -->
+<div class="confirm-modal" id="confirmModal">
+  <div class="confirm-box">
+    <div class="confirm-title">
+      <i class="fas fa-sign-out-alt"></i>
+      Confirm Logout
+    </div>
+    <div class="confirm-text" id="confirmText">
+      Are you sure you want to logout?
+    </div>
+    <div class="confirm-buttons">
+      <button class="confirm-btn cancel" data-onclick="hideConfirmModal()">Cancel</button>
+      <button class="confirm-btn confirm" data-onclick="performLogout()">Logout</button>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="header" id="header" style="display:none;">
+  <div class="header-logo">
+    <div class="logo-icon"><i class="fas fa-bolt"></i></div>
+    <span class="logo-text">ZenBoostMm</span>
+  </div>
+  <div class="user-info">
+    <div class="user-avatar" id="userAvatar">U</div>
+    <button class="menu-btn" data-onclick="toggleMenu()">
+      <i class="fas fa-bars"></i> Menu
+    </button>
+  </div>
+</div>
+
+<!-- MENU -->
+<div class="menu" id="menu">
+  <div class="menu-balance" id="menuBalance">
+    <i class="fas fa-wallet"></i>
+    Balance: $0.00
+  </div>
+  <a class="menu-item" data-onclick="openPage('smmpanel.html')">
+    <i class="fas fa-rocket"></i>
+    <span>Boost Service</span>
+  </a>
+  <a class="menu-item" data-onclick="openPage('service.html')">
+    <i class="fas fa-layer-group"></i>
+    <span>Other Service</span>
+  </a>
+  <a class="menu-item" data-onclick="openPage('coins.html')">
+    <i class="fas fa-plus-circle"></i>
+    <span>Add Funds</span>
+  </a>
+  <a class="menu-item" data-onclick="openPage('history.html')">
+    <i class="fas fa-history"></i>
+    <span>Order History</span>
+  </a>
+  <a class="menu-item" data-onclick="openPage('panel.html')">
+    <i class="fas fa-robot"></i>
+    <span>Panel</span>
+  </a>
+  <a class="menu-item" data-onclick="showLogoutConfirm()">
+    <i class="fas fa-sign-out-alt"></i>
+    <span>Logout</span>
+  </a>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard" style="display:none;">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon"><i class="fas fa-user-astronaut"></i></div>
+      <div>
+        <div class="card-title">Author</div>
+        <div class="card-value" id="username">Loading...</div>
+      </div>
+    </div>
+    <div class="card-desc">Login Username / Email</div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon"><i class="fas fa-rocket"></i></div>
+      <div>
+        <div class="card-title">Level</div>
+        <div class="card-value" id="userLevel">New User</div>
+      </div>
+    </div>
+    <div class="card-desc">Your account level</div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon"><i class="fas fa-wallet"></i></div>
+      <div>
+        <div class="card-title">Balance</div>
+        <div class="card-value">$<span id="balanceAmount">0.00</span></div>
+      </div>
+    </div>
+    <div class="card-desc">Available balance</div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon"><i class="fas fa-calculator"></i></div>
+      <div>
+        <div class="card-title">Panel Orders</div>
+        <div class="card-value"><span id="ordersCount">0</span></div>
+      </div>
+    </div>
+    <div class="card-desc">Total orders placed</div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon"><i class="fas fa-users"></i></div>
+      <div>
+        <div class="card-title">Active Users</div>
+        <div class="card-value" id="usersCount">0</div>
+      </div>
+    </div>
+    <div class="card-desc">All registered users</div>
+  </div>
+</div>
+
+<!-- CHAT -->
+<div class="chat-section" id="chatSection" style="display:none;">
+  <div class="chat-box">
+    <div class="chat-header">
+      <i class="fas fa-comments"></i>
+      Help Centre
+      <span id="adminBadge" class="admin-badge" style="display:none;">Admin Mode</span>
+    </div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-input" id="userChatInput">
+      <input type="text" id="chatInput" placeholder="Type your message..." autocomplete="off">
+      <button data-onclick="sendMessage()">
+        <i class="fas fa-paper-plane"></i> Send
+      </button>
+    </div>
+    <div class="admin-chat-control" id="adminChatControl">
+      <input type="text" id="adminChatInput" class="admin-chat-input" placeholder="Reply as Admin..." autocomplete="off">
+      <button data-onclick="sendAdminMessage()" class="admin-send-btn">
+        <i class="fas fa-shield"></i> Admin Send
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

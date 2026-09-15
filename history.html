@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order History - ZenBoostMm</title>
+<link rel="icon" href="../zen.svg" type="image/png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="history">
+
+<!-- MENU OVERLAY -->
+<div class="menu-overlay" id="menuOverlay" data-onclick="toggleMenu()"></div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <button class="back-btn" data-onclick="window.location.href='index.html'">
+      <i class="fas fa-arrow-left"></i>
+    </button>
+    <div class="header-title">
+      <i class="fas fa-history"></i>
+      Order History
+    </div>
+  </div>
+  
+  <div class="user-profile" data-onclick="toggleMenu()">
+    <div class="profile-circle" id="profileInitial">?</div>
+    <span class="user-name" id="userName">User</span>
+  </div>
+  
+  <button class="menu-btn" data-onclick="toggleMenu()">
+    <i class="fas fa-bars"></i>
+  </button>
+</div>
+
+<!-- MENU -->
+<div class="menu" id="menu">
+  <div class="menu-header">
+    <h3>Menu</h3>
+    <p>Quick navigation</p>
+  </div>
+  <div class="menu-balance">
+    <i class="fas fa-wallet"></i>
+    Balance
+    <span id="balanceAmount">$0.00</span>
+  </div>
+  <a id="dashboardLink"><i class="fas fa-home"></i> Dashboard</a>
+  <a id="boostServiceLink"><i class="fas fa-rocket"></i> Boost Service</a>
+  <a id="otherServiceLink"><i class="fas fa-cogs"></i> Other Service</a>
+  <a id="addFundsLink"><i class="fas fa-plus-circle"></i> Add Funds</a>
+  <a class="active"><i class="fas fa-history"></i> Order History</a>
+  <a id="botPanelLink"><i class="fas fa-robot"></i> Panel</a>
+  <a id="logoutLink"><i class="fas fa-sign-out-alt"></i> Logout</a>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+  <div class="history-container">
+    <h1 class="page-title">Order History</h1>
+    <p class="page-description">View and manage all your orders in one place</p>
+    
+    <div class="search-filter-section">
+      <h3 class="section-title">Search Orders</h3>
+      <div class="search-row">
+        <div class="search-group">
+          <label for="orderIdSearch">Order ID</label>
+          <input type="text" id="orderIdSearch" class="search-input" placeholder="Enter Order ID...">
+        </div>
+        
+        <div class="search-group">
+          <label for="statusFilter">Status Filter</label>
+          <select id="statusFilter" class="select-dropdown">
+            <option value="all">All Status</option>
+            <option value="pending">Pending</option>
+            <option value="processing">Processing</option>
+            <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
+            <option value="coinadd">Coin Add</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="action-buttons">
+        <button class="btn btn-primary" id="searchBtn">
+          <i class="fas fa-search"></i> Search Orders
+        </button>
+        <button class="btn btn-secondary" id="resetBtn">
+          <i class="fas fa-redo"></i> Reset Filters
+        </button>
+      </div>
+    </div>
+    
+    <div class="orders-section">
+      <div class="table-header">
+        <h3 class="table-title">Your Orders</h3>
+        <div class="total-orders">
+          Total: <span id="totalOrders">0</span> orders
+        </div>
+      </div>
+      
+      <div class="loading-state" id="loadingState">
+        <i class="fas fa-spinner"></i>
+        <h3>Loading orders...</h3>
+        <p>Please wait while we fetch your order history</p>
+      </div>
+      
+      <div class="error-state" id="errorState">
+        <i class="fas fa-exclamation-triangle"></i>
+        <h3 id="errorTitle">Error Loading Orders</h3>
+        <p id="errorMessage">Unknown error occurred</p>
+        <button class="btn btn-primary" id="retryBtn" style="margin-top:15px;">
+          <i class="fas fa-redo"></i> Retry
+        </button>
+      </div>
+      
+      <div class="empty-state" id="emptyState">
+        <i class="fas fa-history"></i>
+        <h3>No orders found</h3>
+        <p>Your order history will appear here once you place an order.</p>
+      </div>
+      
+      <div id="ordersTableContainer"></div>
+      
+      <div class="pagination" id="pagination" style="display:none;">
+        <button class="pagination-btn" id="prevPage">
+          <i class="fas fa-chevron-left"></i> Prev
+        </button>
+        <div class="page-numbers" id="pageNumbers"></div>
+        <button class="pagination-btn" id="nextPage">
+          Next <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

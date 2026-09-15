@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up - ZenBoostMm</title>
+<link rel="icon" href="../zen.svg" type="image/png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="register">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo">
+    <span class="brand">ZenBoostMm</span>
+    <span class="tagline">Simple, Fastest & Trusted</span>
+  </div>
+  <div class="header-controls">
+    <button class="back-btn" data-onclick="navigateTo('login.html')">
+      <i class="fas fa-arrow-left"></i> Back
+    </button>
+    <div class="menu-icon" data-onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
+    </div>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee-box">
+  <div class="marquee">
+    <span>📢 တစ်ဒေါ်လာကို ၄၅၀၀ ကျပ်ဖြင့် ZenBoostMm မှာ ငွေလာဖြည့်လို့ရပြီးဗျို့</span>
+    <span>🌈 မြန်မှမြန်၊ တန်မှတန်ဈေးနဲ့ ZenBoostMm</span>
+    <span>💯 မြန်ဆန်မှုနဲ့အတူ ZenBoostMm နဲ့လက်တွဲယူ</span>
+  </div>
+</div>
+
+<!-- MENU -->
+<div class="menu" id="menu">
+  <a href="#" data-onclick="navigateTo('external.html')"><i class="fas fa-headset"></i> Admin Contact</a>
+  <a href="#" data-onclick="navigateTo('password.html')"><i class="fas fa-key"></i> Forgot Password</a>
+  <a href="#" data-onclick="navigateTo('login.html')"><i class="fas fa-sign-in-alt"></i> Login</a>
+</div>
+
+<!-- SIGN UP FORM -->
+<div class="page">
+  <div class="signup-box">
+    <div class="signup-header">
+      <div class="signup-icon"><i class="fas fa-user-plus"></i></div>
+      <h2>Create Account</h2>
+    </div>
+    <p class="signup-subtitle">Join us and start boosting today</p>
+    
+    <div class="error-message" id="errorMessage"></div>
+    <div class="success-message" id="successMessage"></div>
+    <div class="loading" id="loading"><i class="fas fa-spinner"></i> Creating account...</div>
+    
+    <form id="signupForm">
+      <div class="input-group">
+        <label>Full Name</label>
+        <div class="input-wrapper">
+          <i class="fas fa-user input-icon"></i>
+          <input type="text" id="fullName" placeholder="Enter your full name" required>
+        </div>
+      </div>
+      <div class="input-group">
+        <label>Email Address</label>
+        <div class="input-wrapper">
+          <i class="fas fa-envelope input-icon"></i>
+          <input type="email" id="email" placeholder="you@example.com" required>
+        </div>
+      </div>
+      <div class="input-group">
+        <label>Password (min. 6 characters)</label>
+        <div class="input-wrapper">
+          <i class="fas fa-lock input-icon"></i>
+          <input type="password" id="password" placeholder="••••••••" required>
+          <span class="toggle-password" data-onclick="togglePassword('password')">Show</span>
+        </div>
+      </div>
+      <div class="input-group">
+        <label>Confirm Password</label>
+        <div class="input-wrapper">
+          <i class="fas fa-lock input-icon"></i>
+          <input type="password" id="confirmPassword" placeholder="••••••••" required>
+          <span class="toggle-password" data-onclick="togglePassword('confirmPassword')">Show</span>
+        </div>
+      </div>
+      <button class="signup-btn" type="submit">
+        <i class="fas fa-user-plus"></i> Create Account
+      </button>
+    </form>
+    
+    <div class="login-link">
+      Already have an account? <a href="#" data-onclick="navigateTo('login.html')">Login</a>
+    </div>
+    <div class="footer">© 2026 ZenBoostMm. All rights reserved.</div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

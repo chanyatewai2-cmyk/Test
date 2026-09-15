@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Funds - ZenBoostMm</title>
+<link rel="icon" href="../zen.svg" type="image/png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="coins">
+
+<!-- MENU OVERLAY -->
+<div class="menu-overlay" id="menuOverlay" data-onclick="toggleMenu()"></div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <button class="back-btn" data-onclick="window.location.href='index.html'">
+      <i class="fas fa-arrow-left"></i>
+    </button>
+    <div class="header-title">
+      <i class="fas fa-plus-circle"></i>
+      Add Funds
+    </div>
+  </div>
+  
+  <div class="user-profile" data-onclick="toggleMenu()">
+    <div class="profile-circle" id="profileInitial">?</div>
+    <span class="user-name" id="userName">Loading...</span>
+  </div>
+  
+  <button class="menu-btn" data-onclick="toggleMenu()">
+    <i class="fas fa-bars"></i>
+  </button>
+</div>
+
+<!-- MENU -->
+<div class="menu" id="menu">
+  <div class="menu-header">
+    <h3>Menu</h3>
+    <p>Quick navigation</p>
+  </div>
+  <div class="menu-balance">
+    <i class="fas fa-wallet"></i>
+    Balance
+    <span id="balanceAmount">$0.00</span>
+  </div>
+  <a id="dashboardLink"><i class="fas fa-home"></i> Dashboard</a>
+  <a id="boostServiceLink"><i class="fas fa-rocket"></i> Boost Service</a>
+  <a id="otherServiceLink"><i class="fas fa-layer-group"></i> Other Service</a>
+  <a class="active"><i class="fas fa-plus-circle"></i> Add Funds</a>
+  <a id="orderHistoryLink"><i class="fas fa-history"></i> Order History</a>
+  <a id="botPanelLink"><i class="fas fa-robot"></i> Panel</a>
+  <a id="logoutLink"><i class="fas fa-sign-out-alt"></i> Logout</a>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+  <div class="error-message" id="errorMessage">
+    <i class="fas fa-exclamation-circle"></i>
+    <span id="errorText"></span>
+  </div>
+
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <p>Processing your order...</p>
+  </div>
+
+  <div class="search-section">
+    <div class="search-bar">
+      <i class="fas fa-search"></i>
+      <input type="text" id="searchInput" placeholder="Search services...">
+    </div>
+  </div>
+
+  <div class="order-form">
+    <div class="section-title">
+      <i class="fas fa-shopping-cart"></i>
+      Order Coins
+    </div>
+    
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label" for="quantity">
+          <i class="fas fa-hashtag"></i> Quantity (USD)
+        </label>
+        <input type="text" class="form-input" id="quantity" 
+               placeholder="e.g., 1, 5, 10"
+               oninput="updateCost()">
+        <div class="form-hint">Enter only numbers</div>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label" for="cost">
+          <i class="fas fa-money-bill-wave"></i> Cost (MMK)
+        </label>
+        <input type="text" class="form-input" id="cost" readonly placeholder="Auto calculated">
+        <div class="form-hint">Based on quantity</div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label" for="note">
+        <i class="fas fa-sticky-note"></i> Exchange Rate Info
+      </label>
+      <input type="text" class="form-input" id="note" 
+             value="1 USD = 4500 MMK. Coins can be used for all services." 
+             readonly>
+    </div>
+    
+    <div class="payment-selection">
+      <div class="section-title" style="font-size:15px;margin-bottom:16px;">
+        <i class="fas fa-credit-card"></i>
+        Select Payment Method
+      </div>
+      
+      <div class="payment-options">
+        <div class="payment-btn active" id="kpayBtn" data-onclick="selectPayment('kpay')">
+          <img src="ZenBoostMm_kbzlogo.svg" width="32" height="32" alt="KBZ Pay">
+          KBZ Pay
+        </div>
+        <div class="payment-btn" id="waveBtn" data-onclick="selectPayment('wave')">
+          <img src="ZenBoostMm_wavelogo.svg" width="32" height="32" alt="Wave Pay">
+          Wave Pay
+        </div>
+      </div>
+      
+      <div class="payment-details" id="kpayDetails">
+        <div class="detail-row">
+          <span class="detail-label">Account Name</span>
+          <span class="detail-value">Chit Thae Oo</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Phone Number</span>
+          <span class="detail-value">09970573598</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Payment Note</span>
+          <span class="detail-value">payment, Bill, Coin</span>
+        </div>
+        <div class="form-group" style="margin-top:18px;margin-bottom:0;">
+          <label class="form-label" for="kpayId">
+            <i class="fas fa-receipt"></i> KBZ Pay ID (Last 5 digits)
+          </label>
+          <input type="text" class="form-input" id="kpayId" 
+                 placeholder="Enter last 5 digits"
+                 maxlength="5">
+          <div class="form-hint">From your KBZ Pay receipt</div>
+        </div>
+      </div>
+      
+      <div class="payment-details hidden" id="waveDetails">
+        <div class="detail-row">
+          <span class="detail-label">Account Name</span>
+          <span class="detail-value">Ma May Tha Zin Phuu</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Phone Number</span>
+          <span class="detail-value">09955157391</span>
+        </div>
+        <div class="form-group" style="margin-top:18px;margin-bottom:0;">
+          <label class="form-label" for="waveId">
+            <i class="fas fa-receipt"></i> Wave Pay ID (Last 5 digits)
+          </label>
+          <input type="text" class="form-input" id="waveId" 
+                 placeholder="Enter last 5 digits"
+                 maxlength="5">
+          <div class="form-hint">From your Wave Pay receipt</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="order-btn-container">
+      <button class="order-btn" id="orderBtn" data-onclick="placeOrderEnhanced()">
+        <i class="fas fa-shopping-cart"></i> Order Coins Now
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="modal" id="successModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <i class="fas fa-check-circle"></i>
+      <h2>Order Submitted!</h2>
+    </div>
+    <div class="modal-body">
+      <h3>Your order has been received</h3>
+      <p>Your coins order is waiting for admin approval.</p>
+      
+      <div class="order-id" id="orderIdDisplay">123456</div>
+      
+      <div class="mini-pending-status">
+        <i class="fas fa-clock"></i>
+        <span>Pending Admin Confirmation</span>
+      </div>
+      
+      <p style="margin-top:18px;font-size:13px;">Check Order History for status updates.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="ok-btn" data-onclick="closeModal()">
+        <i class="fas fa-check"></i> Got it
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

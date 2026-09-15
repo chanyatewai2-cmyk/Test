@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070914">
+<title>Boost Service • ZenBoostMm</title>
+<link rel="icon" href="../zen.svg" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="service.css">
+</head>
+
+<body>
+<header class="header">
+  <div class="header-left">
+    <button class="back-btn" id="backBtn" aria-label="Back"><i class="fas fa-arrow-left"></i></button>
+    <div class="brand-mark"><i class="fas fa-bolt"></i></div>
+    <div>
+      <div class="header-title">Boost Service</div>
+      <div class="header-sub">ZenBoostMm • SMM Services</div>
+    </div>
+  </div>
+  <div class="profile" id="profileBtn">
+    <div class="avatar" id="profileInitial">?</div>
+    <span class="profile-name" id="userName">Loading...</span>
+    <i class="fas fa-chevron-down" style="font-size:9px;color:#68738d"></i>
+  </div>
+</header>
+
+<div class="menu-overlay" id="menuOverlay"></div>
+<nav class="menu" id="menu">
+  <div class="menu-head"><strong>Quick Menu</strong><span>Manage your ZenBoostMm account</span></div>
+  <div class="balance">
+    <div>
+      <div class="balance-label">AVAILABLE BALANCE</div>
+      <div class="balance-value" id="balanceAmount">$0.00</div>
+    </div>
+    <i class="fas fa-wallet" style="color:#9b8cff"></i>
+  </div>
+  <a id="dashboardLink"><i class="fas fa-house"></i>Dashboard</a>
+  <a class="active"><i class="fas fa-rocket"></i>Boost Service</a>
+  <a id="addFundsLink"><i class="fas fa-circle-plus"></i>Add Funds</a>
+  <a id="orderHistoryLink"><i class="fas fa-clock-rotate-left"></i>Order History</a>
+  <a id="botPanelLink"><i class="fas fa-robot"></i>Panel</a>
+  <a id="logoutLink"><i class="fas fa-right-from-bracket"></i>Logout</a>
+</nav>
+
+<main class="main">
+  <section class="hero">
+    <div class="kicker"><span class="kicker-dot"></span> Live Service Center</div>
+    <h1>Turn your next order into a <span>clean boost.</span></h1>
+    <p>Choose a category and service, set your quantity, add the target link, and review the estimated cost before placing your order.</p>
+    <div class="hero-badges">
+      <span class="badge"><i class="fas fa-database"></i>Live Firebase Services</span>
+      <span class="badge"><i class="fas fa-shield-halved"></i>Order Validation</span>
+      <span class="badge"><i class="fas fa-bolt"></i>Fast Checkout</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-title">
+      <span class="icon"><i class="fas fa-layer-group"></i></span>
+      <div>
+        <strong>Select a service</strong>
+        <small>Choose the category first, then your service.</small>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Category <span class="label-hint" id="serviceCount"></span></label>
+      <div class="select-wrap" id="categoryWrap">
+        <button class="select-btn" id="categoryButton" type="button">
+          <span class="value placeholder" id="categoryLabel">Select a category</span>
+          <i class="fas fa-chevron-down chevron"></i>
+        </button>
+        <div class="dropdown hidden" id="categoryList"></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Service</label>
+      <div class="select-wrap" id="serviceWrap">
+        <button class="select-btn" id="serviceButton" type="button">
+          <span class="value placeholder" id="serviceLabel">Select a category first</span>
+          <i class="fas fa-chevron-down chevron"></i>
+        </button>
+        <div class="dropdown hidden" id="serviceList"></div>
+      </div>
+    </div>
+
+    <div class="info">
+      <div class="info-row"><i class="fas fa-circle-info"></i><span id="serviceNote">Select a service to view its details.</span></div>
+      <div class="info-row"><i class="fas fa-sliders"></i><span id="serviceMinMax">Min: 0 • Max: 0</span></div>
+      <div class="info-row time-row hidden" id="timeLine"><i class="fas fa-clock"></i><span><strong>Average time:</strong> <span id="serviceTime"></span></span></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-title">
+      <span class="icon"><i class="fas fa-cart-shopping"></i></span>
+      <div>
+        <strong>Order details</strong>
+        <small>Enter the target and quantity for your order.</small>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="linkInput">Target Link <span class="label-hint">HTTP / HTTPS</span></label>
+      <input class="input" id="linkInput" type="url" inputmode="url" autocomplete="off" placeholder="https://example.com/...">
+    </div>
+
+    <div class="field">
+      <label for="quantityInput">Quantity <span class="label-hint" id="quantityHint">Select a service first</span></label>
+      <input class="input" id="quantityInput" type="number" min="1" inputmode="numeric" placeholder="Enter quantity">
+      <div class="quick" id="quickButtons"></div>
+    </div>
+
+    <div class="summary">
+      <div>
+        <div class="total-label">Estimated Cost</div>
+        <div class="total"><span id="calculatedPrice">0</span> Ks</div>
+      </div>
+      <div class="balance-hint">Your balance<strong id="balanceHint">$0.00</strong></div>
+    </div>
+
+    <button class="order-btn" id="orderBtn" type="button" disabled>
+      <i class="fas fa-bolt"></i>Place Order
+    </button>
+  </section>
+</main>
+
+<div class="toast" id="toast"><span id="toastText"></span></div>
+<div class="loading" id="loading">
+  <div class="loading-box">
+    <div class="spinner"></div>
+    <strong>Placing your order</strong>
+    <p>Please wait a moment...</p>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="service.js"></script>
+</body>
+</html>

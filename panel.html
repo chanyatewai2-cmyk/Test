@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel - ZenBoostMm</title>
+<link rel="icon" href="../zen.svg" type="image/png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="panel">
+
+<!-- MENU OVERLAY -->
+<div class="menu-overlay" id="menuOverlay" data-onclick="toggleMenu()"></div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <button class="back-btn" data-onclick="window.location.href='index.html'">
+      <i class="fas fa-arrow-left"></i>
+    </button>
+    <div class="header-title">
+      <i class="fas fa-robot"></i>
+      Panel
+    </div>
+  </div>
+  
+  <div class="user-profile" data-onclick="toggleMenu()">
+    <div class="profile-circle" id="profileInitial">?</div>
+    <span class="user-name" id="userName">Loading...</span>
+  </div>
+  
+  <button class="menu-btn" data-onclick="toggleMenu()">
+    <i class="fas fa-bars"></i>
+  </button>
+</div>
+
+<!-- MENU -->
+<div class="menu" id="menu">
+  <div class="menu-header">
+    <h3>Menu</h3>
+    <p>Quick navigation</p>
+  </div>
+  <div class="menu-balance">
+    <i class="fas fa-wallet"></i>
+    Balance
+    <span id="balanceAmount">$0.00</span>
+  </div>
+  <a id="dashboardLink"><i class="fas fa-home"></i> Dashboard</a>
+  <a id="boostServiceLink"><i class="fas fa-rocket"></i> Boost Service</a>
+  <a id="otherServiceLink"><i class="fas fa-layer-group"></i> Other Service</a>
+  <a id="addFundsLink"><i class="fas fa-plus-circle"></i> Add Funds</a>
+  <a id="orderHistoryLink"><i class="fas fa-history"></i> Order History</a>
+  <a class="active"><i class="fas fa-robot"></i> Panel</a>
+  <a id="logoutLink"><i class="fas fa-sign-out-alt"></i> Logout</a>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+  <div class="locked-container">
+    <div class="lock-icon-wrapper">
+      <i class="fas fa-lock"></i>
+    </div>
+    
+    <h1 class="locked-title">Coming Soon</h1>
+    <p class="locked-message">
+      This service is currently under development. We're working hard to bring you an amazing experience. Stay tuned!
+    </p>
+    
+    <div class="coming-soon-badge">
+      <i class="fas fa-clock"></i>
+      System Not Available Yet
+      <div class="dot-pulse">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
